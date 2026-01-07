@@ -81,7 +81,7 @@ if run and company.strip():
         st.download_button(
             "⬇️ Download Markdown Report",
             data=md.encode("utf-8"),
-            file_name=f"marketmind_{company.replace(' ','_').lower()}.md"
+            file_name=f"marketmind_{company.replace(' ','_').lower()}.md",
             mime="text/markdown"
         )
 

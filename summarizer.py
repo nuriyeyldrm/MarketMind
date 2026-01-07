@@ -1,7 +1,7 @@
 import os 
 from typing import List, Dict
 # Used for extractive summarization in fallback mode
-from sklearn.feature_extraction.text import TfidVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
 # APIs are unavailable / deterministic baseline
@@ -14,13 +14,13 @@ def _fallback_summary(chunks: List[str], max_sents: int = 6) -> str:
     """ This converts text into numerical vectors using **️TF-IDF: 
     Words that appear often in one document but not everywhere get higher weight. 
     Common words like "the" get low weight. """
-    vect = TfidVectorizer(stop_words="english")
+    vect = TfidfVectorizer(stop_words="english")
     X = vect.fit_transform(docs)
 
     """ Measures how central each chunk is 
     Chunks similar to many others get higher scores
     Which sentences best represent the overall discussion """
-    scores = linear_kernel(X, X).sum(axis=1).A1 # sentence centrality
+    scores = linear_kernel(X, X).sum(axis=1).ravel() # sentence centrality
 
     """ Picks the most important chunks
     Keeps original order (so the summary reads naturally) """

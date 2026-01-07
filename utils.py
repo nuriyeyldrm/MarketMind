@@ -3,7 +3,7 @@ from typing import List, Tuple, Dict
 from collections import Counter
 
 # Normalize messy text
-def clean_texxt(text: str) -> str:
+def clean_text(text: str) -> str:
     if not text: # Handles empty text
         return ""
     
